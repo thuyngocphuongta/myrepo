@@ -1,0 +1,218 @@
+"";"Rank";"Country";"GDP"
+"5";1;"USA";18036648
+"6";2;"China";11064665
+"7";3;"Japan";4383076
+"8";4;"Germany";3363447
+"9";5;"UK";2861091
+"10";6;"France";2418836
+"11";7;"India";2088841
+"12";8;"Italy";1821497
+"13";9;"Brazil";1803653
+"14";10;"Canada";1552808
+"15";11;"North Korea";1377873
+"16";12;"Australia";1339141
+"17";13;"Russia";1331208
+"18";14;"Spain";1192901
+"19";15;"Mexico";1143793
+"20";16;"Indonesia";861934
+"21";17;"Netherlands";750284
+"22";18;"Turkey";717880
+"23";19;"Switzerland";670790
+"24";20;"Saudi Arabia";646002
+"25";21;"Argentina";584711
+"26";22;"Sweden";495694
+"27";23;"Nigeria";486793
+"28";24;"Poland";477066
+"29";25;"Belgium";455086
+"30";26;"Iran";425326
+"31";27;"Thailand";395168
+"32";28;"Norway";386578
+"33";29;"Austria";376950
+"34";30;"United Arab Emirates";370296
+"35";31;"Egypt";330779
+"36";32;"South Africa";314572
+"37";33;"Hong Kong SAR, China";309235
+"38";34;"Denmark";301308
+"39";35;"Israel";299416
+"40";36;"Malaysia";296283
+"41";37;"Singapore";292739
+"42";38;"Philippines";292451
+"43";39;"Colombia";292080
+"44";40;"Ireland";283703
+"45";41;"Pakistan";271050
+"46";42;"Chile";240796
+"47";43;"Finland";232351
+"48";44;"Portugal";199113
+"49";45;"Bangladesh";195079
+"50";46;"Greece";194851
+"51";47;"Vietnam";193599
+"52";48;"Peru";189111
+"53";49;"Czech Republic";185156
+"54";50;"Kazakhstan";184388
+"55";51;"Iraq";180069
+"56";52;"Romania";177954
+"57";53;"New Zealand";173754
+"58";54;"Algeria";164779
+"59";55;"Qatar";164641
+"60";56;"Hungary";121715
+"61";57;"Kuwait";114041
+"62";58;"Puerto Rico";103135
+"63";59;"Angola";102627
+"64";60;"Morocco";100593
+"65";61;"Ecuador";100177
+"66";62;"Sudan";97156
+"67";63;"Ukraine";90615
+"68";64;"Slovakia";87264
+"69";65;"Cuba";87133
+"70";66;"Sri Lanka";82316
+"71";67;"Oman";69831
+"72";68;"Dominican Republic";68103
+"73";69;"Uzbekistan";66733
+"74";70;"Guatemala";63794
+"75";71;"Kenya";63398
+"76";72;"Myanmar";62601
+"77";73;"Ethiopia";61540
+"78";74;"Luxembourg";56800
+"79";75;"Belarus";54609
+"80";76;"Costa Rica";54137
+"81";77;"Uruguay";53443
+"82";78;"Azerbaijan";53047
+"83";79;"Panama";52132
+"84";80;"Bulgaria";50199
+"85";81;"Croatia";48732
+"86";82;"Lebanon";47085
+"87";83;"Macao SAR, China";46178
+"88";84;"Tanzania";45628
+"89";85;"Tunisia";43015
+"90";86;"Slovenia";42775
+"91";87;"Lithuania";41400
+"92";88;"Yemen";37734
+"93";89;"Ghana";37543
+"94";90;"Jordan";37517
+"95";91;"Serbia";37160
+"96";92;"Turkmenistan";35855
+"97";93;"Democratic Republic of the Congo";35238
+"98";94;"Bolivia";32998
+"99";95;"Ivory Coast";31759
+"100";96;"Bahrain";31126
+"101";97;"Cameroon";28416
+"102";98;"Uganda";27529
+"103";99;"Paraguay";27094
+"104";100;"Latvia";27003
+"105";101;"El Salvador";25850
+"106";102;"Trinidad and Tobago";23559
+"107";103;"Estonia";22459
+"108";104;"Nepal";21195
+"109";105;"Zambia";21154
+"110";106;"Honduras";20421
+"111";107;"Cyprus";19560
+"112";108;"Afghanistan";19331
+"113";109;"Cambodia";18050
+"114";110;"Papua New Guinea";16929
+"115";111;"Iceland";16780
+"116";112;"Bosnia and Herzegovina";16192
+"117";113;"Mozambique";14807
+"118";114;"Zimbabwe";14419
+"119";115;"Botswana";14390
+"120";116;"Jamaica";14262
+"121";117;"Gabon";14262
+"122";118;"Georgia";13965
+"123";119;"Senegal";13610
+"124";120;"Brunei";12930
+"125";121;"Mali";12747
+"126";122;"Nicaragua";12693
+"127";123;"West Bank and Gaza";12677
+"128";124;"Laos";12369
+"129";125;"Equatorial Guinea";12202
+"130";126;"Mongolia";11741
+"131";127;"Mauritius";11682
+"132";128;"Namibia";11492
+"133";129;"Albania";11398
+"134";130;"Chad";10889
+"135";131;"Burkina Faso";10678
+"136";132;"Armenia";10529
+"137";133;"Macedonia";10086
+"138";134;"Malta";9746
+"139";135;"Madagascar";9739
+"140";136;"South Sudan";9015
+"141";137;"Bahamas";8854
+"142";138;"Haiti";8765
+"143";139;"Republic of Congo";8553
+"144";140;"Benin";8291
+"145";141;"Rwanda";8096
+"146";142;"Tajikistan";7853
+"147";143;"Isle of Man";7428
+"148";144;"Niger";7143
+"149";145;"Guinea";6699
+"150";146;"Liechtenstein";6664
+"151";147;"Kyrgyzstan";6572
+"152";148;"Moldova";6568
+"153";149;"Malawi";6404
+"154";150;"Kosovo";6401
+"155";151;"Somalia";5925
+"156";152;"Guam";5734
+"157";153;"Bermuda";5574
+"158";154;"Mauritania";5442
+"159";155;"Suriname";5150
+"160";156;"Fiji";4426
+"161";157;"Barbados";4385
+"162";158;"Sierra Leone";4215
+"163";159;"Swaziland";4118
+"164";160;"Togo";4088
+"165";161;"Montenegro";3987
+"166";162;"Virgin Islands";3765
+"167";163;"Maldives";3435
+"168";164;"Andorra";3249
+"169";165;"Guyana";3166
+"170";166;"Burundi";3097
+"171";167;"Faroe Islands";2613
+"172";168;"Greenland";2441
+"173";169;"Lesotho";2278
+"174";170;"Bhutan";2058
+"175";171;"Liberia";2053
+"176";172;"Belize";1753
+"177";173;"Djibouti";1727
+"178";174;"Cape Verde";1603
+"179";175;"Central African Republic";1584
+"180";176;"Timor-Leste";1442
+"181";177;"Seychelles";1438
+"182";178;"Saint Lucia";1431
+"183";179;"Antigua and Barbuda";1259
+"184";180;"Solomon Islands";1129
+"185";181;"Guinea-Bissau";1057
+"186";182;"Grenada";984
+"187";183;"Gambia";939
+"188";184;"Northern Mariana Islands";922
+"189";185;"St. Kitts and Nevis";876
+"190";186;"Samoa";761
+"191";187;"Vanuatu";742
+"192";188;"St. Vincent and the Grenadines";738
+"193";189;"American Samoa";641
+"194";190;"Comoros";566
+"195";191;"Dominica";517
+"196";192;"Tonga";435
+"197";193;"Sao Tome and Principe";318
+"198";194;"Micronesia";315
+"199";195;"Palau";287
+"200";196;"Marshall Islands";179
+"201";197;"Kiribati";160
+"202";198;"Nauru";100
+"203";199;"Tuvalu";33
+"205";NA;"Aruba";NA
+"206";NA;"Virgin Islands";NA
+"207";NA;"Cayman Islands";NA
+"208";NA;"Channel Islands";NA
+"209";NA;"Curacao";NA
+"210";NA;"Eritrea";NA
+"211";NA;"French Polynesia";NA
+"212";NA;"Gibraltar";NA
+"213";NA;"South Korea";NA
+"214";NA;"Libya";NA
+"215";NA;"Monaco";NA
+"216";NA;"New Caledonia";NA
+"217";NA;"San Marino";NA
+"218";NA;"Sint Maarten";NA
+"219";NA;"Saint Martin";NA
+"220";NA;"Syria";NA
+"221";NA;"Turks and Caicos Islands";NA
+"222";NA;"Venezuela";NA

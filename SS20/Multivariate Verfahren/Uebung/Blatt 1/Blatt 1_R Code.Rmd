@@ -1,0 +1,423 @@
+---
+title: "Blatt 1"
+author: "Multivariate Verfahren"
+date: "4/27/2020"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(maps)
+#### Set working directory
+setwd("C:/Document/UNI/SS20/Multivariate Verfahren/Uebung")
+getwd()
+
+#### Datenaufbereitung
+wdi <- readRDS("wdi_daten.rds")
+wdi_info <- readRDS("wdi_info.rds")
+wdi13 <- wdi[wdi$Jahr == 2013,]
+wdi_westeuropa <- wdi[wdi$Region == "Western Europe", ]
+
+head(wdi)
+wdi_info
+
+## Aufgabe 1: ggplot2
+
+
+##### Beispiel 1: Scatterplot
+g <- ggplot(wdi13, aes(x = ZS, y = KSL))
+# Shortcut-Definition der Ebene durch geom_point()
+g + geom_point()
+# Alternative: Selbe Ebene per Hand defineren
+g + layer(geom = "point", stat = "identity", position = "identity")
+
+
+
+
+##### Beispiel 2: Balkendiagramm
+g <- ggplot(wdi13[!is.na(wdi13$AL_kat),],
+            aes(x = Kontinent, fill = AL_kat))
+# Shortcut-Defintion der Ebene durch geom_bar()
+g + geom_bar(position = "fill")
+# Alternative: Selbe Ebene per Hand defineren
+g + layer(geom = "bar", stat = "count", position = "fill")
+
+
+
+
+##### Beispiel 3: Histogramm
+g <- ggplot(wdi13, aes(x = AL))
+# Shortcut-Definton der Ebene durch geom_histogram()
+g + geom_histogram()
+# Alternative: Selbe Ebene per Hand defineren
+g + layer(geom = "bar", stat = "bin", position = "stack")
+
+
+
+
+
+
+
+### 1b)
+
+#### Elemente einer Ebene:
+# data: selbsterklärend
+
+# i) aesthetic mapping
+g <- ggplot(wdi_westeuropa, aes(x = Jahr, y = AL, color = Land))
+g + geom_point()
+
+# ii) geom
+g <- ggplot(wdi_westeuropa, aes(x = Jahr, y = AL, color = Land))
+g + geom_line(aes(group = Land))
+g + geom_point() + geom_line(aes(group = Land))
+
+ggplot(wdi_westeuropa, aes(x = "", y = AL)) + geom_boxplot()
+ggplot(wdi_westeuropa, aes(x = Jahr, y = AL)) + geom_boxplot()
+
+# iii) stat
+# Scatterplot:
+# ?geom_point -> stat = "identity"
+# Balkendiagramm:
+# ?geom_count -> stat = "sum" (stat_sum())
+# Histogramm:
+# ?geom_histogram -> stat = "bin" (stat_bin())
+
+# iv) position
+g <- ggplot(wdi13[!is.na(wdi13$AL_kat),],
+            aes(x = Kontinent, fill = AL_kat))
+g + geom_bar(position = "stack")
+g + geom_bar(position = "fill")
+g + geom_bar(position = "dodge")
+
+# Horizontal
+g + geom_bar(position = "stack") + coord_flip()
+
+
+
+
+
+
+### 1c)
+g <- ggplot(wdi13, aes(x = ZS, y = KSL)) +
+  geom_point()
+
+# i) Themes
+# ?theme
+# -> umfassende Einstellungsmöglichkeiten
+# ?theme_minimal
+# -> Einige vordefinierte Themes zur einfachen Benutzung
+# ?theme_update
+g
+g + theme_void()
+g + theme_bw()
+g + theme_bw() + theme(panel.grid = element_blank())
+
+# Festlegen des globalen Themes
+theme_set(theme_bw() + theme(panel.grid = element_blank()))
+
+
+# ii) Plot- & Achsenbeschriftungen, Panel
+# Beschriftungen
+g2 <- g + ggtitle("Titel") + xlab("xlab") + ylab("ylab") + xlim(c(0,100))
+g2
+
+g2 <- g2 + theme(plot.title = element_text(hjust = 0.5))
+g2
+
+g2 + theme(axis.text.y = element_blank(),
+           axis.ticks.y = element_blank(),
+           axis.title.y = element_blank())
+# Panel
+# -> siehe Theme-Definton in (i)
+
+
+
+
+
+# iii) Legende, Farben ändern
+g <- ggplot(wdi13, aes(x = ZS, y = KSL, color = Kontinent)) +
+  geom_point()
+g
+
+# Titel
+g + guides(color = guide_legend(title = "Continent"))
+
+# Position
+g + theme(legend.position = "bottom")
+g + theme(legend.justification=c(0,1),
+          legend.position=c(0,1))
+
+# Farben
+g + scale_color_manual(values = c("black","red","yellow","green","blue"))
+
+# RColorBrewer zur Verwendung vordefinierter Sets
+g + scale_color_brewer(palette = "Set1")
+g + scale_color_brewer(palette = "Set2")
+
+# Symbole
+g + geom_point(shape = 3)
+g2 <- g + geom_point(aes(shape = Kontinent))
+g2
+g2 + scale_shape_manual(values = c(3,3,3,1,1))
+
+
+
+# iv) Faceting
+g + facet_grid(. ~ Kontinent)
+g + facet_grid(Kontinent ~ .)
+g + facet_grid(Bev_kat ~ Kontinent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Aufgabe 2: Scatterplots
+
+### 2a)
+# Scatterplot mit empirischen Randverteilungen
+g <- ggplot(wdi13, aes(x = ZS, y = KSL))
+g2 <- g + geom_point() + xlim(c(0,100))
+g2 + geom_rug(sides = "bl")
+
+
+
+# Obige Darstellungsart ist problematisch, falls nur wenige unterschiedliche
+# Werte vorkommen
+# -> Lösung: Jittering
+wdi13$ZS_round <- round(wdi13$ZS, digits = -1)
+gr <- ggplot(wdi13, aes(x = ZS_round, y = KSL)) + geom_point() + xlim(c(0,100))
+gr + geom_rug(sides = "bl")
+
+gr + geom_rug(sides = "bl", position = "jitter")
+
+
+
+
+
+# Scatterplot mit empirischen Randverteilungen
+library(gridExtra)
+grid.arrange(g + geom_histogram(aes(y=..density..)) + xlim(c(0,100)),
+             ggplot() + theme_minimal(),
+             g2,
+             g + geom_boxplot(aes(x="")),
+             nrow = 2, ncol = 2, widths = c(2,1), heights = c(1,2))
+
+
+
+
+### 2b)
+g2 + geom_density2d()
+g + geom_density2d()
+
+
+
+### 2c)
+
+# Scatterplot mit weiteren Variablen
+g + geom_point(aes(col=ZE, size=Bev))
+
+# auch möglich: Symbole
+g + geom_point(aes(col=ZE, shape=Kontinent))
+
+# Aber nicht übertreiben: Alles zusammen wäre hier etwas unübersichtlich!
+g + geom_point(aes(col=ZE, size=Bev, shape=Kontinent))
+
+
+
+
+
+### 2d)
+dat <- wdi13[wdi13$Kontinent %in% c("Africa","Americas","Europe"),]
+gc <- g %+% dat
+# Scatter Plot mit LOESS-Glättungskurven unterteilt nach dritter Variable
+gc + geom_point(aes(col = Kontinent)) +
+  geom_smooth(aes(group = Kontinent, col = Kontinent))
+gc + geom_point(aes(col = Kontinent)) +
+  geom_smooth(aes(group = Kontinent, col = Kontinent)) +
+  facet_grid(Kontinent ~ .)
+
+
+
+
+
+### 2e)
+
+dat <- data.frame(x = rnorm(5000),y=rnorm(5000))
+g <- ggplot(dat,aes(x=x,y=y))
+
+# Problem: Overplotting
+g + geom_point()
+
+# Sampling
+dat_kurz <- dat[sample(1:nrow(dat), size = 1000),]
+ggplot(dat_kurz,aes(x=x,y=y)) + geom_point()
+
+# Transparenz
+g + geom_point(alpha = 0.3)
+
+# Dichte
+g + geom_density2d()
+g + geom_point() + geom_density2d()
+
+# Binning (hexagonal)
+library(hexbin)
+g + stat_binhex()
+
+
+
+### 2f)
+
+##### 3D-Scatterplot
+library(scatterplot3d)
+scatterplot3d(wdi13$ZS, wdi13$ZE, wdi13$KSL, type = "p", angle = 55)
+
+scatterplot3d(wdi13$ZS, wdi13$ZE, wdi13$KSL, type = "h", angle = 55)
+
+scatterplot3d(wdi13$ZS, wdi13$ZE, wdi13$KSL, type = "h", angle = 65)
+
+scatterplot3d(wdi13$ZS, wdi13$ZE, wdi13$KSL, type = "h", angle = 75)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Aufgabe 3: Spezielle Graphiken
+
+### 3a)
+
+# Scatterplot Matrix mit Regressionsgeraden
+library(GGally)
+dat <- wdi13[,c("Kontinent","Bev","KSL","ZS","ZE","log_BIP")]
+ggpairs(dat)
+ggpairs(dat, aes(color=Kontinent))
+
+
+# Korrelationsmatrix
+library(corrplot)
+dat$Kontinent <- NULL
+mat <- cor(dat, use = "complete.obs")
+corrplot(mat, method="circle")
+corrplot(mat, method="circle", order="hclust")
+corrplot(mat, method="ellipse")
+corrplot(mat, method="number")
+
+
+
+
+### 3b)
+library(fmsb)
+dat <- wdi13[wdi13$Land %in% c("Germany","France","United States",
+                               "Angola","South Sudan"),]
+row.names(dat) <- dat$Land
+dat <- dat[,c("Bev","KSL","ZS","ZE","log_BIP")]
+
+radarchart(dat, maxmin = FALSE)
+legend("bottomright", col = 1:nrow(dat), lwd = 2, legend = row.names(dat))
+
+
+#### Chernoff-Gesichter
+
+
+### 3c)
+
+##### Weltkarte
+
+world <- map_data("world")
+gdp <- read.csv2("GDP.csv")
+world$logGDP <- log(gdp$GDP[match(world$region, gdp$Country)])
+g <- ggplot(world, aes(x = long, y = lat, group = group, fill = logGDP)) +
+  geom_polygon()
+g
+
+
+##### Ändern des Koordinatensystems
+
+g + coord_map("ortho", orientation=c(31, -4, 0))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Aufgabe 4: Interaktiv
+
+### 4a)
+
+library(manipulate)
+
+# Einfacher Scatterplot
+# manipulate(
+#  ggplot(wdi[wdi$Jahr == jahr,], aes(x = ZS, y = KSL)) + geom_point() +
+#    xlim(c(0,100)),
+#  jahr = picker(2010,2011,2012,2013))
+
+# Scatterplot mit KDE
+plot_gg <- function(jahr, bw.x, bw.y) {
+  ggplot(wdi[wdi$Jahr == jahr,], aes(x = ZS, y = KSL)) +
+    geom_point() + xlim(c(0,100)) +
+    geom_density2d(h = c(bw.x, bw.y))
+}
+#manipulate(
+#  plot_gg(jahr, bw.x, bw.y),
+#  jahr = picker(2010,2011,2012,2013),
+#  bw.x = slider(10, 100, step = 10),
+#  bw.y = slider(10, 100, step = 10))
+
+
+
+### 4b)
+
+
+##### Aufruf einer shiny-App
+
+library(shiny)
+#runApp("4b_shiny.R")
+
+```
+
