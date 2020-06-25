@@ -1,0 +1,8 @@
+All detailed onboarding tutorials for Data Scientists and PowerBI report developer are only available on our Project Wiki on Azure DevOps: 
+https://apps-munichre.visualstudio.com/NL%20Analytics%20Platform
+
+This sharepoint site contains simply some files we are refering to in the Wiki.
+
+Please contact the NLAP core team first (Matthias Duschl / Stephan Meyer / Lorenz Haubner / Franz Stelz) 
+if you are interested to work on the platform. We will discuss your case and guide you through all needed materials.
+
