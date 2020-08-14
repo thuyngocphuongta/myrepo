@@ -1,0 +1,27 @@
+﻿prob_diff,variable
+0.002723448447996996,0.11 < commission_ratio <= 0.12
+0.002691054722744472,4313.64 < cum_12m_gross_annual_premium_amt_per_exposure <= 5505.61
+0.002393853320476136,make=HYUNDAI
+0.0020111300733791624,vehicle_value > 177187.50
+0.001173007094125647,cum_12m_no_claims <= 0.00
+0.0009646645660743984,401.99 < gross_annual_premium_amt <= 501.68
+0.0008444045814099513,is_censored <= 0.00
+0.0006245293349294912,profession=missing
+0.0005505792010497603,civil_status=missing
+0.0004452608489518878,vehicle_type_cd=AUTOMOVIL
+0.0004199959050002395,means_of_collection=CORREDOR
+0.0003850114407362933,0.00 < is_bank_customer <= 1.00
+0.00016769691380622823,gender=missing
+-0.00007530174942811272,cum_loss_amt_per_claim <= 0.00
+-0.00029464681277059776,customer_category_bank=missing
+-0.00040711541309739965,birthyear <= 0.00
+-0.0005050196107798516,economic_activity=missing
+-0.0006572801103047084,65.00 < age <= 999.00
+-0.0007704976664275354,zone_danger_score=1
+-0.0009409827081597964,days_since_renewal > 324.00
+-0.0010454966088299963,cum_no_claims_per_exposure_objects <= 0.00
+-0.0011588448009382571,-49.84 < gross_annual_premium_amt_per_exposure_24m_change <= -12.43
+-0.001428444380881014,-0.04 < relative_premium_change_per_exposure_12m_change <= 0.00
+-0.0016566875224804268,cum_12m_loss_amt_per_claim <= 0.00
+-0.002694368024973913,16596.89 < cum_gross_annual_premium_amt <= 24074.28
+-0.0033636366542997495,driver_under_25_and_older_than_16=0
