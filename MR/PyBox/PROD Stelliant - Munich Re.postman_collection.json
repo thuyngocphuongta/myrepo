@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "5331327d-9bef-4b37-84ee-bc5589047522",
+		"name": "[PROD] Stelliant / Munich Re",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f64d41e2-e4ba-4453-a82b-53bf6641fa77",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"uid\": \"WSMURE\",\n  \"passwd\": \"@WSMURE!\"\n}"
+				},
+				"url": {
+					"raw": "http://texa.prod-veos.iga.fr/rs/rsExtranet2/login",
+					"protocol": "http",
+					"host": [
+						"texa",
+						"prod-veos",
+						"iga",
+						"fr"
+					],
+					"path": [
+						"rs",
+						"rsExtranet2",
+						"login"
+					]
+				},
+				"description": "token indispensable aux autres appels WS (durée de vie = 3h)"
+			},
+			"response": []
+		},
+		{
+			"name": "Détails d'un contrat {id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://texa.prod-veos.iga.fr/rs/rsExtranet2/contrat/11019527",
+					"protocol": "http",
+					"host": [
+						"texa",
+						"prod-veos",
+						"iga",
+						"fr"
+					],
+					"path": [
+						"rs",
+						"rsExtranet2",
+						"contrat",
+						"11019527"
+					]
+				},
+				"description": "{\r\n    \"mouvement\": \"AN\",\t\t\t\t=> code mouvement\r\n    \"motif\": \"AN\",\t\t\t\t\t=> code motif\r\n    \"compagnie\": \"MURE\",\t\t\t=> code compagnie\r\n    \"societe\": \"LUKO\",\t\t\t\t=> code société\r\n    \"dtEffet\": \"04/06/2019\",\t\t=> date d'effet de la police\r\n    \"ttc\": \"179.99\",\t\t\t\t=> prime TTC annuelle client \r\n    \"encaissement\": \"1\",\t\t\r\n    \"cdProd\": \"LUKO04\",\t\t\t\t=> code produit\r\n    \"cdFrac\": \"M\",\t\t\t\t\t=> fractionnement (\"M\"=mensuel,\"T\"=trimestriel,\"A\"=annuel)\r\n    \"devise\": \"EU\",\t\t\t\t\t=> devise\r\n    \"modeReglement\": \"CB\",\t\t\t=> code mode de règlement\r\n    \"formule\": \"POM\",\t\t\t\t=> code formule (\"MINLEG\" ou \"POM\")\r\n    \"typeFrais\": \"M\",\t\t\t\t=> code frais\r\n    \"echeance\": \"04/06/2019\",\t\t=> date échance\r\n    \"primeNet\": \"\",\t\t\t\t\t=> montant de la prime nette\r\n    \"tacit\": \"TR\",\t\t\t\t\t=> code renouvellement (\"TR\"=\"tacite reconduction\")\r\n    \"type\": \"C\",\t\t\t\t\t=> type objet (\"C\"=contrat)\r\n    \"personnes\": {\r\n        \"souscripteur\": {\r\n            \"id\": \"11051012\"\t\t=> Id de la personne souscriteur dans Veos\r\n        },\r\n        \"listBenefs\": [\r\n            {\r\n                \"id\": \"11041841\",\t\t\t=> Id de la personne colocataire dans Veos\r\n                \"categorie\": \"ASSURE\",\r\n                \"categPerpolice\": \"COLOC\"\r\n            },\r\n            {\r\n                \"id\": \"11041842\",\t\t\t=> Id de la personne conjoint dans Veos\r\n                \"categorie\": \"ASSURE\",\r\n                \"categPerpolice\": \"CONJOINT\"\r\n            },\r\n            {\r\n                \"id\": \"11041843\",\t\t\t=> Id de la personne enfant dans Veos\r\n                \"categorie\": \"ASSURE\",\r\n                \"categPerpolice\": \"ENFANT\"\r\n            }\r\n        ]\r\n    },\r\n    \"listInfos\": null,\r\n    \"listRisques\": [\r\n        {\r\n            \"key\": \"NUMVOIE\",\t\t\t=> n° de voie\r\n            \"value\": \"4\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"NOMVOIE\",\t\t\t=> nom de la voie\r\n            \"value\": \"Rue des Champs\"\t\r\n        },\r\n        {\r\n            \"key\": \"CP\",\t\t\t\t=> code postal\r\n            \"value\": \"75005\"\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"LIEUDIT\",\t\t\t=> lieu dit\r\n            \"value\": null\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"COMMUNE\",\t\t\t=> ville\r\n            \"value\": \"PARIS\"\t\t\r\n        },\r\n        {\r\n            \"key\": \"QUALITE\",\t\t\t=> qualité (\"loc\"=\"Locataire\",\"pno1\"=\"PNO meublé\",\"pno2\"=\"PNO non meublé\",\"proprio\"=\"Propriétaire occupant\")\r\n            \"value\": \"loc\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"TYPE_HAB\",\t\t\t=> type d'habitation (\"A\"=\"Appartement\",\"M\"=\"Maison\")\r\n            \"value\": \"A\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"TYPE_RES\",\t\t\t=> type résidence (\"0\"=\"Principale\",\"1\"=\"Secondaire\")\r\n            \"value\": \"0\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"SURFACE\",\t\t\t=> surface\r\n            \"value\": \"79\"\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"NBPIECE\",\t\t\t=> nombre de pièce(s)\r\n            \"value\": \"3\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"ETAGE\",\t\t\t\t=> étage (\"rdc\"=\"Rez-de-chaussée\",\"int\"=\"Intermédiaire\",\"top\"=\"Dernier étage\")\r\n            \"value\": \"int\"\t\t\t\t\r\n        },\r\n        {\t\r\n            \"key\": \"NBRETAGE\",\t\t\t=> nb d'étage(s)\r\n            \"value\": \"1\"\r\n        },        \r\n        {\r\n            \"key\": \"PARCELLES\",\t\t\t=> parcelles list\r\n            \"value\": \"data\"\r\n        },\r\n        {\r\n            \"key\": \"PACK_PROTECTION\",\t=> pack protection (\"pom\"=\"Peace of Mind\",\"mini\"=\"Minimum Légal\")\r\n            \"value\": \"pom\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"DEPENDANCE\",\t\t=> dépendance (\"1\"=\"Oui\",\"0\"=\"Non\")\r\n            \"value\": \"0\"\t\t\t\t\r\n        },\r\n        {\r\n            \"key\": \"OPENFIREPLACE\",\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"3\"\r\n        },\r\n        {\r\n            \"key\": \"CLOSEDFIREPLACE\",\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"2\"\r\n        },\r\n        {\r\n            \"key\": \"FIREALARM\",\t\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"2\"\r\n        },\r\n        {\r\n            \"key\": \"THEFTALARM\",\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"1\"\r\n        },\r\n        {\r\n            \"key\": \"SOLARPANELS\",\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"3\"\r\n        },\r\n        {\r\n            \"key\": \"VERANDA\",\t\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"1\"\r\n        },\r\n        {\r\n            \"key\": \"GARAGE\",\t\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"2\"\r\n        },\r\n        {\r\n            \"key\": \"SWIMMINGPOOL\",\t\t=> (\"1\"=undefined,\"2\"=True,\"3\"=False)\r\n            \"value\": \"3\"\r\n        }        \r\n    ],\r\n    \"listGaranties\": [\r\n        {\r\n            \"cdGar\": \"ASS\",\t\t\t\t=> code garantie\r\n            \"libGar\": \"Assistance\",\t\t=> libellé garantie\r\n            \"dtEffet\": \"04/06/2019\",\t=> date d'effet\r\n            \"dtFin\": null,\t\t\t\t\r\n            \"natureCapital\": \"SANS\",\t=> cf referentiel ci-dessous\r\n            \"capital\": \"0\",\t\t\t\t=> capital garantie\r\n            \"natureFranchise\": \"SANS\",\t=> cf referentiel ci-dessous\r\n            \"franchise\": \"0\",\t\t\t=> franchise garantie\r\n            \"fraisMini\": \"0\",\r\n            \"fraisMaxi\": \"0\",\r\n            \"primeNet\": \"0\",\t\t\t=> prime nette\r\n            \"cdTaxe\": \"\", \r\n            \"taxe\": \"0\",\t\t\t\t=> montant de taxe\r\n            \"primeTTC\": \"0\",\t\t\t=> prime TTC\r\n            \"txCom\": \"0\",\t\t\t\t=> taux de commission\r\n            \"com\": \"0\"\t\t\t\t\t=> montant de commission\r\n        },\r\n[...]\r\n\r\n\r\nDéfinition des autres personnes liées au contrat, exemple avec un souscripteur et un quérable différents de l'assuré : \r\n\"listBenefs\": [\r\n\t{\r\n\t    \"id\": \"11043033\",\t\t\t\t\t=> Identifiant de la personne 1\r\n\t    \"categorie\": \"SOUSCRIPT\",\t\t\t=> Catégorie de la personne (\"QUERAB\" = Quérable, \"SOUSCRIPT\" = Souscripteur)\r\n\t    \"categPerpolice\": \"SOUSCRIPT\",\t\t=> Catégorie de la personne sur la police (\"QUERAB\" = Quérable, \"SOUSCRIPT\" = Souscripteur)\r\n\t},\r\n\t{\r\n\t    \"id\": \"11043035\",\t\t\t\t\t=> Identifiant de la personne 2\r\n\t    \"categorie\": \"QUERAB\",\t\t\t\t=> Catégorie de la personne (\"QUERAB\" = Quérable, \"SOUSCRIPT\" = Souscripteur)\r\n\t    \"categPerpolice\": \"QUERAB\",\t\t\t=> Catégorie de la personne sur la police (\"QUERAB\" = Quérable, \"SOUSCRIPT\" = Souscripteur)\r\n\t}\r\n]\r\n\r\n\r\n\r\nCodes - Modes de règlement :\r\n\r\n\"LETCH\"\tLettre chèque\r\n\"VIR\"\tVirement\r\n\"CB\"\tPaiement Par carte\r\n\"PREL\"\tPrélèvement\r\n\"CPT\"\tEspèce\r\n\"CHQ\"\tChèque\r\n\"PRELA\"\tPrélèvement automatique\r\n\r\n\r\nCodes - Nature de capital des garanties :\r\n    \r\nSANS\tSans\r\n1\tMontant\r\n2\tIllimité\r\n3\tValeur vénale\r\n4\tValeur à neuf\r\n5\tValeur de remplacement\r\n6\tExclue\r\n7\t% sinistre\r\n8\t% prime\r\n9\tGarantie\r\n10\t% travaux\r\n11\t% objets précieux\r\n12\tAucun\r\n13\tCorporel Accidents Illimitée\r\n14\tCorp. Inc. DDE : 180 000 EURO\r\n15\tMat. Inc. Dde : 30 000 EURO\r\n16\tImmat. acc. inc. DDE \r\n17\tValeur contenu\r\n18\tValeur caravane\r\n20\tdont 0% d'objets sensibles\r\n21\tdont 20% d'objets sensibles\r\n22\tdont 30% d'objets sensibles\r\n23\tMontant / par mois\r\n24\tbudget copropriété\r\n25\t10 % Travaux\r\n26\t20 % Travaux\r\n28\tNb de mois\r\n29\tContenu / Caravane\r\n30\t% travaux\r\n31\tNombre de fois l'indice\r\n32\tTaux\r\n33\tBelge\r\n19\tNbr de personnes assurées\r\n\r\n\r\nCodes - Nature de capital des franchises :\r\n\r\nSANS\tSans\r\n1\tMontant\r\n2\t% capital\r\n3\t% sinistre\r\n5\tfois l'indice\r\n6\tEn nombre de jours\r\n7\tEn nombre de kms\r\nA\tTable de Franchises \r\nH\tNbre de mois\r\nMM\tMontant Mini/Maxi"
+			},
+			"response": []
+		},
+		{
+			"name": "Détails d'un sinistre {id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://texa.prod-veos.iga.fr/rs/rsExtranet2/sinistre/11013888",
+					"protocol": "http",
+					"host": [
+						"texa",
+						"prod-veos",
+						"iga",
+						"fr"
+					],
+					"path": [
+						"rs",
+						"rsExtranet2",
+						"sinistre",
+						"11013888"
+					]
+				},
+				"description": "{\r\n    \"id\": \"11013888\",\t\t\t\t\t\t\t\t\t\t=> id technique Veos du sinistre\r\n    \"numCie\": null,\r\n    \"numCbt\": \"H1900147\",\t\t\t\t\t\t\t\t\t=> n° sinistre Stelliant\r\n    \"idPol\": \"11019527\",\t\t\t\t\t\t\t\t\t=> id technique Veos de la police qui porte le sinistre\r\n    \"numSoc\": \"LUKO\",\r\n    \"idElem\": \"11019527\",\r\n    \"typeElem\": null,\r\n    \"refRisque\": null,\r\n    \"mouvement\": \"CLOSIN\",\t\t\t\t\t\t\t\t\t=> mouvement (voir référentiel en fin de description)\r\n    \"motif\": \"TERMINE\",\t\t\t\t\t\t\t\t\t\t=> motif (voir référentiel en fin de description)\r\n    \"numAuto\": null,\r\n    \"numAutoCie\": null,\r\n    \"type\": \"1\",\t\t\t\t\t\t\t\t\t\t\t=> type de sinistre (\"1\"=matériel,\"2\"=corporel,\"3\"=Matériel et corporel)\r\n    \"txResp\": \"0\",\r\n    \"circonstance\": \"138_RCMAT\",\t\t\t\t\t\t\t=> circonstance (voir \"libCirconstance\" pour le libellé)\r\n    \"causeCirconstance\": \"Porte-fenêtre cassée avec un gros caillou par un tiers, Hannan Natchit. Acte volontaire. L'assuré parle d'une histoire de jalousie.\",\r\n    \"userCalendrier\": null,\r\n    \"dateOuverture\": \"20/08/2019\",\r\n    \"dateSurvenance\": \"23/07/2019\",\r\n    \"heureSurvenance\": \"0\",\r\n    \"dateDeclaration\": \"24/07/2019\",\r\n    \"dateCloture\": \"26/08/2019\",\r\n    \"codeProduit\": \"LUKO04\",\r\n    \"codeCie\": \"MURE\",\r\n    \"dommages\": \"porte fenetre \",\t\t\t\t\t\t\t=> dommages\r\n    \"risque1\": null,\r\n    \"risque2\": null,\r\n    \"risque3\": \"28200 Châteaudun\",\r\n    \"risque4\": null,\r\n    \"risque5\": \"45 Rue de Kromeriz\",\r\n    \"libMvt\": \"Clôture Sinistre\",\t\t\t\t\t\t\t=> libellé mouvement\r\n    \"libMotif\": \"Terminé\",\t\t\t\t\t\t\t\t\t=> libellé motif\r\n    \"libCirconstance\": \"Responsabilité civile matérielle\",\t=> libellé circonstance\r\n[...]\r\n    ],\r\n    \"listPer\": [\r\n        {\r\n            \"idPer\": \"11018381\",\r\n            \"nom\": \"Bruneau\",\r\n            \"prenom\": \"Celine\",\r\n            \"categ\": \"ASSURE\",\r\n            \"telephoneFixe\": null,\r\n            \"telephoneMobile\": null,\r\n            \"email\": \"bruneau.celine15@gmail.com\",\r\n            \"adresse1\": \"45 Rue de Kromeriz\",\r\n            \"adresse2\": null,\r\n            \"ville\": \"Châteaudun\",\r\n            \"cp\": \"28200\",\r\n            \"codePays\": \"Fr\",\r\n            \"codeTitre\": null,\r\n            \"dateNaissance\": null,\r\n            \"idSinp\": \"11029695\",\r\n[...]\r\n            \"num\": \"LUKO_U_1918008819\",\t\t\t\t\t\t=> n° de police\r\n            \"note\": null,\r\n            \"voie\": null\r\n        }\r\n    ],\r\n    \"pmq\": null,\r\n    \"reglements\": [],\r\n    \"recours\": null,\r\n    \"etapes\": null,\r\n    \"historique\": [\t\t\t\t\t\t\t\t\t\t\t=> historique\r\n        {\r\n            \"idHistorique\": \"11016953\",\r\n            \"dtHistorique\": \"20/08/2019 00:00:00\",\r\n            \"mvtHistorique\": \"Ouverture Sinistre\",\r\n            \"motifHistorique\": \"Ouverture Sinistre\"\r\n        },\r\n        {\r\n            \"idHistorique\": \"11017100\",\r\n            \"dtHistorique\": \"26/08/2019 10:40:56\",\r\n            \"mvtHistorique\": \"Clôture Sinistre\",\r\n            \"motifHistorique\": \"Terminé\"\r\n        }\r\n    ],\r\n[...]\r\n}\r\n\r\n***\r\n\r\nMouvements / Motif / Libellé motif\r\n\r\nCLOSIN\t\tCLOSIN\t\tClôture Sinistre\r\nCLOSIN\t\tANNULE\t\tAnnulé\r\nCLOSIN\t\tTERMINE\t\tTerminé\r\nCLOSIN\t\tMOT20\t\tCLOS AVOCAT\r\nCLOSIN\t\tREGCIE\t\tRèglement Cie\r\nCLOSIN\t\tCONVOL\t\tConv. Vol\r\nCLOSIN\t\tMOT21\t\tCLOS AVUS\r\nCLOSIN\t\tSINSS\t\tSans Suite\r\nCLOSIN\t\tREFUSE\t\tREFUSE\r\nCLOSIN\t\tCIDRE\t\tCidre\r\nMODIFSIN\tMODIFSIN\tModification Sinistre\r\nOUVSIN\t\tOUVSIN\t\tOuverture Sinistre\r\nOUVSIN\t\tATTCONST\tAttente du constat\r\nOUVSIN\t\tATTDCIE\t\tAttente décision Cie\r\nOUVSIN\t\tMOT01\t\tAttente réclamation assuré\r\nOUVSIN\t\tMOT02\t\tAttente Rapport Expert\r\nOUVSIN\t\tMOT03\t\tAttente Facture Client\r\nOUVSIN\t\tATTPCLI\t\tAttente Pièces Client\r\nOUVSIN\t\tAUTRES\t\tAutres motifs\r\nOUVSIN\t\tATTRCIE\t\tAttente Réglement Cie\r\nOUVSIN\t\tATTICIE\t\tAttente Instructions Cie\r\nOUVSIN\t\tATTRAP\t\tAttente Rapport\r\nOUVSIN\t\tREGPAR\t\tRéglement Partiel\r\nOUVSIN\t\tRECEXEC\t\tRecours à exercer\r\nOUVSIN\t\tRECSUB\t\tRecours à subir\r\nOUVSIN\t\tREGASS\t\tRèglement à l assuré\r\nOUVSIN\t\tEXTSIN\t\tPré-déclaration extranet\r\nOUVSIN\t\tMOT26\t\tEn attente documents client\r\nOUVSIN\t\tMOT27\t\tENVOYE AU FONDS DE GARANTIE\r\nOUVSIN\t\tPREDECL\t\tPré-Déclaration\r\nOUVSIN\t\tMOT25\t\tAttente prise en charge signée\r\nOUVSIN\t\tMOT24\t\tEN ATTENTE DE REF CIE\r\nOUVSIN\t\tMOT04\t\tAttente réclamation tiers\r\nOUVSIN\t\tMOT06\t\tAttente Réglement du Tiers\r\nOUVSIN\t\tMOT07\t\tAttente Rembt Franchise\r\nOUVSIN\t\tMOT08\t\tAttente Rembt Cie à Cabinet\r\nOUVSIN\t\tMOT11\t\tAttente réglement épave\r\nOUVSIN\t\tMOT12\t\tAttente valeur à neuf\r\nOUVSIN\t\tMOT13\t\tAttente du PV de Police\r\nOUVSIN\t\tMOT14\t\tAttente Trans-Immat\r\nOUVSIN\t\tMOT15\t\tGESTION AVUS\r\nOUVSIN\t\tMOT16\t\tGESTION AVOCAT\r\nOUVSIN\t\tMOT17\t\tATTENTE VIREMENT\r\nOUVSIN\t\tMOT18\t\tGESTION PL\r\nOUVSIN\t\tMOT19\t\tGESTION JFA\r\nOUVSIN\t\tMOT22\t\tattente remboursement franchise\r\nOUVSIN\t\tMOT23\t\tattente note d'honoraires\r\nOUVSINC\t\tOUVSINC\t\tOuverture avec Cloture\r\nREOUVSIN\tMOT01\t\tAttente réclamation assuré\r\nREOUVSIN\tREOUVSIN\tReouverture Sinistre\r\nREOUVSIN\tMOT04\t\tAttente réclamation tiers\r\n\r\n***\r\n\r\nCodes / libellés Circonstances :\r\n\r\n138_PREDE\tA déterminer - Pré Déclaration\r\n138_ACCMEN\tAccident ménager RS\r\n138_ATTEN\tAttentats et actes de terrorisme\r\n138_ACATN\tAutes catastrophes naturelles\r\n138_AVA\t\tAvalanche\r\n138_BDGL\tBris de glace\r\n138_CATECH\tCatastrophe technologique\r\n138_CHTAER\tChoc / chute aérienne engin/autre\r\n138_CHVEH\tChoc de VTM\r\n138_DDE\t\tDégâts des eaux\r\n138_DEP\t\tDépendance\r\n138_DOMEL\tDommage électrique RS\r\n138_EXPLO\tExplosion RS\r\n138_INC\t\tIncendie\r\n138_INDAC\tIndividuelle accident\r\n138_INOND\tInondation\r\n138_MVTER\tMouvement de terrain\r\n138_NEIGE\tNeige toiture\r\n138_RCINC\tR.C INC. R.S\r\n138_RCSPM\tRC sportive\r\n138_RCSPO\tRC sportive matériel\r\n138_EXTIN\tRecharge extinct. RS\r\n138_RCCOR\tResponsabilité civile corporelle\r\n138_RCMAT\tResponsabilité civile matérielle\r\n138_DRY\t\tSécheresse\r\n138_SEISM\tSéisme\r\n138_TEMP\tTempête RS\r\n138_VOL\t\tVol"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c25562fc-a71c-41b4-85b6-bd6582b2b605",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "454feaa8-afad-4b15-9be2-f349c09423e7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
